@@ -37,6 +37,7 @@ router.get("/signout", signout);
 router.get("/", isSignedIn, (req, res) => {
   res.json({
     test: req.auth,
+    profile: req.profile,
   });
 });
 
