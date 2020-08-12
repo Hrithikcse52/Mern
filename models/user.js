@@ -16,6 +16,7 @@ var userSchema = new Schema(
       type: String,
       maxlength: 30,
       trim: true,
+      required: true,
     },
     email: {
       type: String,
@@ -27,7 +28,6 @@ var userSchema = new Schema(
       type: String,
       trim: true,
     },
-    //todo : come back here
     encry_password: {
       type: String,
       required: true,

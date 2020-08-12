@@ -40,6 +40,12 @@ var getUser = (req, res) => {
   return res.json(req.profile);
 };
 
+var getAllUser = (req, res) => {
+  User.find().exec((err, usr) => {
+    return res.json(usr);
+  });
+};
+
 var userPurchaseList = (req, res) => {
   Order.find({ user: req.profile.id })
     .populate("user", "_id name")
@@ -52,9 +58,43 @@ var userPurchaseList = (req, res) => {
     });
 };
 
+var pushOrderInPurchaseList = (req, res, next) => {
+  let purchases = [];
+  req.body.order.products.forEach((product) => {
+    purchases.push({
+      _id: product._id,
+      name: product.name,
+      description: product.description,
+      category: product.category,
+      quantity: product.quantity,
+      amount: req.body.order.amount,
+      transaction_id: req.body.order.transaction_id,
+    });
+  });
+
+  //TODO: Store in DB
+  User.findByIdAndUpdate(
+    {
+      _id: req.profile._id,
+    },
+    {
+      $push: { purchases },
+    },
+    { new: true },
+    (err, purchases) => {
+      if (err)
+        return res.status.json({
+          err: "Unable to Save The Purchase List",
+        });
+    }
+  );
+};
+
 module.exports = {
   getUser,
   userPurchaseList,
   updateUser,
   getUserById,
+  getAllUser,
+  pushOrderInPurchaseList,
 };

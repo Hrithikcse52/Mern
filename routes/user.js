@@ -6,6 +6,7 @@ const {
   getUserById,
   getUser,
   updateUser,
+  getAllUser,
   userPurchaseList,
 } = require("../controllers/User");
 
@@ -15,7 +16,7 @@ router.get("/user/:userId", isSignedIn, isAuth, getUser);
 router.get("/user/orders/:userId", isSignedIn, isAuth, userPurchaseList);
 
 router.put("/user/:userId", updateUser);
-// Get All User Route
-// router.get("/users", getAllUser);
+
+router.get("/users", getAllUser);
 
 module.exports = router;
