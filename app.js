@@ -5,9 +5,12 @@ const app = express();
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+
 const authRoutes = require("./routes/auth");
 const userRoute = require("./routes/user");
 const categoryRoute = require("./routes/category");
+const productRoute = require("./routes/product");
+
 mongoose
   .connect(process.env.DB_HOST, {
     useNewUrlParser: true,
@@ -25,6 +28,7 @@ app.use(cors());
 app.use("/api", authRoutes);
 app.use("/api", userRoute);
 app.use("/api", categoryRoute);
+app.use("/api", productRoute);
 
 const port = process.env.PORT || 8000;
 app.listen(port, () => {
