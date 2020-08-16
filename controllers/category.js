@@ -71,7 +71,7 @@ var removeCategory = (req, res) => {
         err,
       });
     res.json({
-      message: `$category is Deleted`,
+      message: `${category} is Deleted`,
     });
   });
 };

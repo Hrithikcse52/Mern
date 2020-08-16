@@ -11,11 +11,11 @@ var getProductById = (req, res, next, id) => {
         return res.status(400).json({
           Err: "product not Found",
         });
+      // console.log(product ? "1" : "2");
 
       req.product = product;
+      next();
     });
-
-  next();
 };
 
 var createProduct = (req, res) => {
@@ -50,7 +50,53 @@ var createProduct = (req, res) => {
   });
 };
 
+var getAllProduct = (req, res) => {
+  Products.find().exec((err, product) => {
+    if (err)
+      return res.status(400).json({
+        err,
+      });
+
+    res.json(product);
+  });
+};
+
+var getProduct = (req, res) => {
+  req.product.photo = undefined;
+  return res.json({
+    product: req.product,
+  });
+};
+
+var photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.contentType);
+    res.send(req.product.photo.data);
+  }
+  next();
+};
+
+var removeProduct = (req, res) => {
+  const product = req.product;
+  product.remove((err, product) => {
+    if (err)
+      return res.status(400).json({
+        err,
+      });
+    res.json({
+      message: `${product.name} is Deleted`,
+    });
+  });
+};
+
+var updateProduct = (req, res) => {
+  let product = req.product;
+};
 module.exports = {
   getProductById,
   createProduct,
+  getProduct,
+  photo,
+  getAllProduct,
+  removeProduct,
 };
