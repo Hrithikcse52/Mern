@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-var { check, body } = require("express-validator");
 
 const {
   getProductById,
@@ -9,6 +8,8 @@ const {
   photo,
   removeProduct,
   getAllProduct,
+  updateProduct,
+  getAllDistinctCategory,
 } = require("../controllers/product");
 const { isSignedIn, isAuth, isAdmin } = require("../controllers/auth");
 const { getUserById } = require("../controllers/User");
@@ -30,6 +31,9 @@ router.get("/product/image/:productId", photo);
 //Get all Products
 router.get("/products", getAllProduct);
 
+//Get all Distinct Category
+router.get("/products/categories", getAllDistinctCategory);
+
 //Delete Product
 router.delete(
   "/product/:productId/:userId",
@@ -45,7 +49,7 @@ router.put(
   isSignedIn,
   isAuth,
   isAdmin,
-  removeProduct
+  updateProduct
 );
 
 module.exports = router;
