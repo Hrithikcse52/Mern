@@ -16,7 +16,7 @@ var userSchema = new Schema(
       type: String,
       maxlength: 30,
       trim: true,
-      required: true,
+      // required: true,
     },
     email: {
       type: String,

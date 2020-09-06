@@ -12,7 +12,7 @@ router.post(
       min: 3,
     }),
     check("email", "Email Is Required").isEmail(),
-    check("password", "Must Contain 6 Character").isLength({
+    check("password", "Password Must Contain 6 Characters").isLength({
       min: 6,
     }),
   ],

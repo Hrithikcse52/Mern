@@ -26,6 +26,7 @@ router.post(
 );
 
 router.get("/product/:productId", getProduct);
+
 router.get("/product/image/:productId", photo);
 
 //Get all Products

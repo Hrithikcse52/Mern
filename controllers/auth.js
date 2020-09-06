@@ -19,7 +19,7 @@ var signup = (req, res) => {
   const user = new User(req.body);
   user.save((err, user) => {
     if (err) {
-      return res.status(400).json({ err: "Something Went Worng" });
+      return res.status(400).json(err);
     }
     res.json({
       name: user.name,
@@ -55,6 +55,7 @@ var signin = (req, res) => {
     if (err || !user) {
       return res.status(400).json({
         error: "User Eamil Does't Exists",
+        err,
       });
     }
 
