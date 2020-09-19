@@ -41,6 +41,7 @@ var createProduct = (req, res) => {
       product.photo.contentType = file.photo.contentType;
     }
 
+    console.log(product);
     product.save((err, product) => {
       if (err)
         res.status(400).json({
@@ -100,6 +101,7 @@ var removeProduct = (req, res) => {
 var updateProduct = (req, res) => {
   let form = formdible.IncomingForm();
   form.keepExtensions = true;
+  console.log(req);
 
   form.parse(req, (err, field, file) => {
     if (err)
@@ -107,7 +109,9 @@ var updateProduct = (req, res) => {
         err: "Problem With Response",
       });
 
+    console.log(req.product);
     let product = req.product;
+
     product = _.extend(product, field);
 
     if (file.photo) {
@@ -119,7 +123,7 @@ var updateProduct = (req, res) => {
       product.photo.data = fs.readFileSync(file.photo.path);
       product.photo.contentType = file.photo.contentType;
     }
-
+    console.log(product);
     product.save((err, product) => {
       if (err)
         res.status(400).json({

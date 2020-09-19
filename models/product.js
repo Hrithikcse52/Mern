@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema(
       trim: true,
       required: true,
       maxlength: 32,
+      required: true,
     },
     description: {
       type: String,
@@ -20,7 +21,9 @@ const productSchema = new mongoose.Schema(
       required: true,
       maxlength: 32,
       trim: true,
+      required: true,
     },
+
     category: {
       type: ObjectId,
       ref: "Category",

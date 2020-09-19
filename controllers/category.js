@@ -13,11 +13,13 @@ var getCategoryById = (req, res, next, id) => {
 };
 
 var createCategroy = (req, res) => {
+  console.log(req.body);
   const category = new Category(req.body);
   category.save((err, category) => {
     if (err) {
       return res.status(400).json({
         err: "Could Not Save Category",
+        err,
       });
     }
     res.json({ category });
